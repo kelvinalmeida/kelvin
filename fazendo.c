@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-void jogar(int todas_as_jogadas, int fim_do_tabuleiro, int tabuleiro[], int dado) {
+int jogar(int casa, int fim_do_tabuleiro, int tabuleiro[], int dado) {
 
-    int cont = 0, casa = 0;
+    int cont = 0;
 
     casa += dado; // joguei o dado.
 
@@ -64,21 +64,42 @@ int main() {
 
     int numero_casas, numero_jogadores, numeros_rodadas;
 
-    scanf("%d %d %d", numero_casas, numero_jogadores, numeros_rodadas);
+    scanf("%d %d %d", &numero_casas, &numero_jogadores, &numeros_rodadas);
 
     int tabuleiro[numero_casas];
 
     for (int i = 0; i < numero_casas; i++)
-        scanf("%d", tabuleiro[i]); // Pego todos os números do tabuleiro.
-
-        
+        scanf("%d", &tabuleiro[i]); // Pego todos os números do tabuleiro.
+            
     int jogadas_de_dado[numero_jogadores*numeros_rodadas];
 
     for (int i = 0; i < numero_jogadores*numeros_rodadas; i++)
-        scanf("%d", jogadas_de_dado[i]); // Pego o numero de jogadas de todos.
+        scanf("%d", &jogadas_de_dado[i]); // Pego o numero de jogadas de todos.
+    
+    int jogadores = numero_jogadores; 
+        
+    for (int i = 0; i < numero_jogadores; i++) {
+        printf(">>>%d\n", i);
+        int casa = 0, aux = (numero_jogadores*numeros_rodadas) - (jogadores);
+       
+        for (int j = i; j <= aux ; j = j + numero_jogadores) {
+            printf(">>%d %d %d\n", aux, j, jogadas_de_dado[j]);
+            if (j < aux)
+            {
+                // printf("OI");
+                casa = jogar(casa, numero_casas, tabuleiro, jogadas_de_dado[j]); // Enviar um jogador por vez e calcula a casa dele naquela rodada.
+            }
+            else
+            {
+                casa = jogar(casa, numero_casas, tabuleiro, jogadas_de_dado[j]); 
 
-    for (int i = 0; i < numero_jogadores; i++)
-        jogar(numero_jogadores*numeros_rodadas, numero_casas, tabuleiro, jogadas_de_dado[i]); // Enviar um jogador por vez, calcula toda a sua trajetoria de todas as partidas, e já printa a sua posição final.
+                printf(">%d\n", casa);
+            }           
+        }
+
+        jogadores--;
+    }
+    
 
 return 0;    
 }
