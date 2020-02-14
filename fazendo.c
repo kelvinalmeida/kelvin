@@ -4,37 +4,40 @@ void jogar(int todas_as_jogadas, int fim_do_tabuleiro, int tabuleiro[], int dado
 
     int cont = 0, casa = 0;
 
-    while (cont < todas_as_jogadas) // Parada.
-    {
-        if (tabuleiro[dado] > 0)
+    casa += dado; // joguei o dado.
+
+    // while (cont < todas_as_jogadas) // Parada.
+    // {
+        if (tabuleiro[casa] > 0) // Se o numero da casa for maior que zero.
         {
-            
-            if (tabuleiro[dado] + casa < fim_do_tabuleiro)
+            if (casa + tabuleiro[casa] < fim_do_tabuleiro) // Se a soma da casa aonde voce avancou, mais numero da casa vai ser menor que o tabuleiro.
             {
-                casa += tabuleiro[dado];
+                casa += tabuleiro[casa];
+                return casa;
             }
             else
             {
-                if (tabuleiro[dado] + casa == fim_do_tabuleiro)
+                if (casa + tabuleiro[casa] >= fim_do_tabuleiro)
                 {
-                    casa = 0;
-                }
-                else
-                {
-                    casa = 0;
-                    casa += ;
-                }             
+                    int sobra;
+                    sobra = (casa + tabuleiro[casa]) - (fim_do_tabuleiro - 1);
+                    for (; sobra >= fim_do_tabuleiro ;)
+                    {
+                        sobra = sobra - (fim_do_tabuleiro - 1);
+                    }
+        
+                    casa = sobra - 1; // pois o 0 está incluindo como primeiro.
+                    return casa;
+                }            
             }
-            
-            
         }
         else if (tabuleiro[dado] < 0)
         {
             
         }
               
-        cont++;
-    }
+        // cont++;
+    // }
     
     
 }
@@ -61,8 +64,3 @@ int main() {
 
 return 0;    
 }
-
-
-//strcopy();
-//strcmp();
-//strlen();
