@@ -21,6 +21,7 @@ void jogar(int todas_as_jogadas, int fim_do_tabuleiro, int tabuleiro[], int dado
                 {
                     int sobra;
                     sobra = (casa + tabuleiro[casa]) - (fim_do_tabuleiro - 1);
+                    
                     for (; sobra >= fim_do_tabuleiro ;)
                     {
                         sobra = sobra - (fim_do_tabuleiro - 1);
@@ -33,13 +34,30 @@ void jogar(int todas_as_jogadas, int fim_do_tabuleiro, int tabuleiro[], int dado
         }
         else if (tabuleiro[dado] < 0)
         {
-            
+            if (casa - tabuleiro[casa] >= 0) // Se a subtracao da casa aonde voce avancou, mais numero da casa vai ser maior que 0.
+            {
+                casa -= tabuleiro[casa];
+                return casa;
+            }
+            else
+            {
+                if (casa - tabuleiro[casa] < 0)
+                {
+                    int sobra;
+                    sobra = (casa - tabuleiro[casa]) * -1; // Para que a sobra não seja negativa.
+                    
+                    for (; sobra >= fim_do_tabuleiro ;)
+                    {
+                        sobra = sobra - (fim_do_tabuleiro - 1);
+                    }
+        
+                    casa = (fim_do_tabuleiro - 1) - (sobra);
+                    return casa;
+                }            
+            }
         }
-              
         // cont++;
     // }
-    
-    
 }
 
 int main() {
